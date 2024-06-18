@@ -1,11 +1,11 @@
 import { nanoid } from "nanoid";
-import { URL } from "../models/url.mjs";
+import { Url } from "../models/url.mjs";
 
 export async function generateShortUrl(req, res) {
   const id = nanoid(10);
   const body = req.body;
-  if (!body.url) return res.status(400).json({ msg: "url required" });
-  const data = await URL.create({
+  if (!body.url) return res.status(400).json({ msg: "Url required" });
+  const data = await Url.create({
     shortId: id,
     redirectUrl: body.url,
     visitHistory: [],
@@ -17,7 +17,7 @@ export async function generateShortUrl(req, res) {
 
 export async function getShortUrlSite(req, res) {
   const shortId = req.params.id;
-  const entry = await URL.findOneAndUpdate(
+  const entry = await Url.findOneAndUpdate(
     {
       shortId,
     },
@@ -34,9 +34,16 @@ export async function getShortUrlSite(req, res) {
 
 export async function getWebsiteAnalytics(req, res) {
   const shortId = req.params.id;
-  const history = await URL.findOne({ shortId });
+  const history = await Url.findOne({ shortId });
   return res.status(200).json({
     totalClicks: history.visitHistory.length,
     analytics: history.visitHistory,
   });
+}
+
+export async function renderUrlOnFrontend(req, res) {
+  const allUrls = await Url.find({});
+  if (!allUrls) return res.status(404).json({ msg: "No url found" });
+
+  return res.status(200).send(allUrls);
 }

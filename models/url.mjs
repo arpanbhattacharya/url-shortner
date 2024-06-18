@@ -22,4 +22,4 @@ const urlSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const URL = mongoose.model("url", urlSchema);
+export const Url = mongoose.model("url", urlSchema);
