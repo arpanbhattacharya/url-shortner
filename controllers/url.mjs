@@ -12,7 +12,9 @@ export async function generateShortUrl(req, res) {
   });
 
   console.log(data);
-  return res.status(201).json({ id: id });
+  return res.render("home.ejs", {
+    id: id,
+  });
 }
 
 export async function getShortUrlSite(req, res) {
@@ -41,7 +43,7 @@ export async function getWebsiteAnalytics(req, res) {
   });
 }
 
-export async function renderUrlOnFrontend(req, res) {
+export async function showAllUrls(req, res) {
   const allUrls = await Url.find({});
   if (!allUrls) return res.status(404).json({ msg: "No url found" });
 

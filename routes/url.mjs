@@ -3,12 +3,12 @@ import {
   generateShortUrl,
   getShortUrlSite,
   getWebsiteAnalytics,
-  renderUrlOnFrontend,
+  showAllUrls,
 } from "../controllers/url.mjs";
 
 const router = express.Router();
 
-router.route("/").post(generateShortUrl).get(renderUrlOnFrontend);
+router.route("/").post(generateShortUrl).get(showAllUrls);
 
 router.get("/:id", getShortUrlSite);
 

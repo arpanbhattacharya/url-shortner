@@ -1,0 +1,22 @@
+POST http://localhost:8000/url
+Content-Type: application/application/json
+
+{
+    "url": 
+}
+
+###
+
+GET http://localhost:8000/url/CfcBJLpBb5
+
+###
+
+GET http://localhost:8000/url/analytics/CfcBJLpBb5
+
+###
+
+GET http://localhost:8000/url
+
+###
+
+POST http://localhost:8000/user

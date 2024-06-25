@@ -1,7 +1,10 @@
 import express from "express";
 import "dotenv/config";
 import mongoose from "mongoose";
+import path from "path";
 import urlRouter from "./routes/url.mjs";
+import staticRouter from "./routes/staticRouter.mjs";
+import userRouter from "./routes/user.route.mjs";
 
 // express app
 const app = express();
@@ -17,14 +20,16 @@ mongoose
 
 // middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.set("view-engine", "ejs");
+app.set("views", path.resolve("./views"));
 
 // root route
-app.get("/", (req, res) => {
-  res.send("Hello");
-});
+app.use("/", staticRouter);
 
 //routes
 app.use("/url", urlRouter);
+app.use("/user", userRouter);
 
 // server
 app.listen(port, () => {
