@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 import urlRouter from "./routes/url.mjs";
 import staticRouter from "./routes/staticRouter.mjs";
 import userRouter from "./routes/user.route.mjs";
-import { restrictToLoggedInUserOnly } from "./middlewares/auth.mjs";
+import { restrictToLoggedInUserOnly, checkAuth } from "./middlewares/auth.mjs";
 
 // express app
 const app = express();
@@ -33,7 +33,7 @@ app.set("views", path.resolve("./views"));
 app.use(cookieParser());
 
 // root route
-app.use("/", staticRouter);
+app.use("/", checkAuth, staticRouter);
 
 //routes
 app.use("/url", restrictToLoggedInUserOnly, urlRouter);
