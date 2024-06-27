@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
 import User from "../models/user.model.mjs";
 import { setUser } from "../services/auth.mjs";
 
@@ -22,9 +21,8 @@ export async function userLogin(req, res) {
       error: "Invalid email or password",
     });
 
-  const sessionId = uuidv4();
-  setUser(sessionId, user);
-  res.cookie("uid", sessionId);
+  const token = setUser(user);
+  res.cookie("token", token);
 
   return res.redirect("/");
 }

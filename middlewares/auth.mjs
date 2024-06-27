@@ -1,10 +1,10 @@
 import { getUser } from "../services/auth.mjs";
 
 async function restrictToLoggedInUserOnly(req, res, next) {
-  const userUid = req.cookies.uid;
-  if (!userUid) return res.redirect("/login");
+  const userToken = req.cookies?.token;
+  if (!userToken) return res.redirect("/login");
 
-  const user = getUser(userUid);
+  const user = getUser(userToken);
   if (!user) return res.redirect("/login");
 
   req.user = user;
@@ -12,9 +12,9 @@ async function restrictToLoggedInUserOnly(req, res, next) {
 }
 
 async function checkAuth(req, res, next) {
-  const userUid = req.cookies.uid;
+  const userToken = req.cookies?.token;
 
-  const user = getUser(userUid);
+  const user = getUser(userToken);
 
   req.user = user;
   next();
