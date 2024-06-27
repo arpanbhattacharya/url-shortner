@@ -9,6 +9,7 @@ export async function generateShortUrl(req, res) {
     shortId: id,
     redirectUrl: body.url,
     visitHistory: [],
+    createdBy: req.user._id,
   });
 
   console.log(data);
